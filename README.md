@@ -10,6 +10,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     2. Navigate to folder having package.json
     3. run "npm install"
     4. run "npm start"
+
+## Notes
+    To update the server url naviagte to "Trading-Client⁩/src⁩/⁨app/⁩app.config.ts"
     
 ![image info](./src/assets/img/screen0.png)   
 

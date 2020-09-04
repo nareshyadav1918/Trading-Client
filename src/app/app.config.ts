@@ -16,7 +16,5 @@ export const BaseAppConfig: AppConfig = {
 	dummyUserProfileImage: "assets/img/dummy_user.png",
 	apiBase: "http://localhost:8080/api/v1",
 	apiServerName: "http://localhost:8080/"
-// 	apiBase: "http://192.168.1.33:8080/api/v1",
-// 	apiServerName: "http://192.168.1.33:8080/"
 
 };
