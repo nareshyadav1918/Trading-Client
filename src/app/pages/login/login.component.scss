@@ -1,0 +1,72 @@
+.login-page {
+  overflow: hidden;
+  min-height: 100%;
+  background:none !important;
+}
+
+.card{
+  background:none !important;
+  border:none !important;
+  /*border-radius:150px !important;*/
+}
+
+.login-body{
+	overflow-x: hidden !important;
+	overflow-y: hidden !important;
+	background:#d2d6de url(../../../assets/img/login-bg.jpg) !important;
+}
+
+.login-logo{
+	margin-bottom: 3px !important;
+}
+
+.login-box-body{
+	border-radius:20px;
+	background:#333 url(../../../assets/img/bg_pattern.jpg) !important;
+}
+
+.login-box-body a{
+	color:#032542 !important;
+}
+
+.login-box-body a:hover{
+	color:#032542 !important;
+}
+
+.login-box-body a:active{
+	color:#032542 !important;
+}
+
+.logo-title{
+  text-align: center !important;
+  white-space: nowrap;
+}
+.logo-title a{
+	color:#032542 !important;
+
+}
+
+.logo-title .logocircle{
+  width:98px;
+  height:98px;
+  margin: 0px auto;
+  background-color:#fff !important;
+	border-radius:80px !important;
+	padding: 18px;
+
+}
+.logo-title img{
+	height:65px;
+
+}
+.login-box-msg{
+	color:#032542 !important;
+}
+
+.checkbox label{
+	color:#032542 !important;
+}
+
+.forget-link{
+  cursor: pointer !important;
+}

@@ -1,0 +1,59 @@
+ <div class="row">
+  <div class="col-12 text-center">
+ 
+    <div style="padding:10px !important; background-color:#fff !important; border-radius:8px !important;">TRADE TERMINAL</div>
+  <!-- /.login-logo {{'sign_in_to_start_label' /// translate}}-->
+  <div class="card" style="max-width:350px !important; margin:0px auto !important;border-radius:20px !important;">
+    <div class="card-body login-card-body login-box-body">
+      <p class="login-box-msg" >Sign in to start your session</p>
+      
+      
+        <div class="input-group mb-3">
+          <input type="text" [(ngModel)]="userCredentials.user_name" 
+            class="form-control" 
+            placeholder="User Name"  (keyup.enter) ="login()"/>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span> 
+            </div>
+          </div>
+
+        </div>
+        <div class="input-group mb-3">
+          <input
+          [(ngModel)]="userCredentials.password"  
+            type="password"
+            class="form-control" 
+            placeholder="Password"  (keyup.enter) ="login()"/>
+
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+          &nbsp;
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button
+              (click)="login()" (keyup.enter) ="login()"
+              type="button" name="button" class="btn btn-primary btn-block btn-flat">
+              Sign In
+            </button>
+          </div>
+          <!-- /.col -->
+        </div>
+      
+
+      
+
+        
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+</div>
+

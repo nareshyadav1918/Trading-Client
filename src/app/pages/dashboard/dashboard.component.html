@@ -1,0 +1,328 @@
+<div class="content-header" style="margin:0px !important; padding:0px  !important; ">
+  <div class="container-fluid" style="background-color: #e2eaff  !important; ">
+    <div class="row mb-2">
+      <div class="col-6" style="padding:5px !important;">
+        <h4 style="text-transform: uppercase; color:#a2a7c5 !important;margin-top:12px;">Trade Simulator Client</h4>
+      </div>
+      <div class="col-6 text-right"  style="padding:5px !important;">
+        <span style="color:#777b90 !important;"><i>Hi, <strong>{{user.first_name+' '+user.last_name}}</strong></i></span><br>
+<a href="javascript:void(0);" (click)="logout()" style="text-decoration:none  !important; text-transform: uppercase; color:#777b90  !important;"><i class="fa fa-power-off"></i> Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+  
+    
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <mat-tab-group #dashboardTabs (selectedTabChange)="onTabChanged($event)" [selectedIndex]="dashTabIndex"  [backgroundColor]="'#FF0000'" [color]="'warn'">
+             <mat-tab  id="account" label="Account"> 
+              <!----------------------------------Fee item structure------------------------------------>
+              <div class="row padding-20">
+                <div class="col-md-12">&nbsp;</div>
+              </div> 
+              <div class="row mark-line">
+                <div class="col-md-12">
+                  <span class="badge badge-tools">Account ID</span>
+                </div>
+                
+              </div>
+              <div class="row padding-20">
+                <div class="col-md-12">
+                  <span class="normal-text-title">{{accountDetails.account_id}}</span></div>
+              </div> 
+              <div class="row padding-20">
+                <div class="col-md-12">&nbsp;</div>
+              </div> 
+
+              <div class="row mark-line">
+                <div class="col-md-12">
+                  <span class="badge badge-tools">Personal Details</span>
+                </div>
+                
+              </div>
+              <div class="row padding-20">
+                <div class="col-md-4">
+                  <span class="normal-text-title">First Name</span>:<span class="normal-text">&nbsp;{{accountDetails.first_name}}</span>
+                </div>
+
+                <div class="col-md-4">
+                  <span class="normal-text-title">Last Name</span>:<span class="normal-text">&nbsp;{{accountDetails.last_name}}</span>
+                </div>
+                <div class="col-md-4">
+                  <span class="normal-text-title">Email</span>:<span class="normal-text">&nbsp;{{accountDetails.email}}</span>
+                </div>
+                <div class="col-md-4">
+                  <span class="normal-text-title">Phone</span>:<span class="normal-text">&nbsp;{{accountDetails.phone}}</span>
+                </div>
+                
+              </div>
+              <div class="row padding-20">
+                <div class="col-md-12">&nbsp;</div>
+              </div> 
+             
+              <div class="row mark-line">
+                <div class="col-md-12">
+                  <span class="badge badge-tools">Balance Overview</span>
+                </div>                
+              </div>
+              <div class="row padding-20">
+                <div class="col-md-4">
+                  <span class="normal-text-title">Main Balance</span>:&nbsp;<span class="normal-text" [innerHTML]="formatMoney(accountDetails.main_balance)"></span>
+                </div>
+                <div class="col-md-4">
+                  <span class="normal-text-title">Holdings Balance</span>:&nbsp;<span class="normal-text" [innerHTML]="formatMoney(accountDetails.amount_invested)"></span>
+                </div>
+                <div class="col-md-4">
+                  <span class="normal-text-title">Profit/Loss</span>:&nbsp;<span class="normal-text" [innerHTML]="formatMoney(accountDetails.profit)"></span>
+                </div>               
+              </div>
+               <!-- /.row -->
+               <div class="row padding-20">
+                <div class="col-md-12 col-12">
+                  <div class="card ">
+                   <div class="card-body">
+                     <div class="position-relative mb-4">
+                       <canvas baseChart
+                           [data]="pieBalanceDetails.data"
+                           [labels]="pieBalanceDetails.labels"                           
+                           [chartType]="pieBalanceDetails.type"
+                           [colors]="pieBalanceDetails.colors"></canvas>
+                 
+                     </div>
+                   </div>
+                 </div>
+                 </div>
+
+                 <!--<div class="col-md-6 col-12">
+                  <div class="card ">
+                   <div class="card-body">
+                     <div class="position-relative mb-4">
+                       <canvas baseChart
+                           [data]="pieProfitDetails.data"
+                           [labels]="pieProfitDetails.labels"                           
+                           [chartType]="pieProfitDetails.type"
+                           [colors]="pieProfitDetails.colors"></canvas>
+                 
+                     </div>
+                   </div>
+                 </div>
+                 </div>-->
+              </div>
+               <!----------------------------------Fee item structure end ------------------------------->
+             </mat-tab>
+
+
+
+             <mat-tab  id="orders" label="Orders"> 
+              <div class="row padding-20">
+                <div class="col-md-12">&nbsp;</div>
+              </div> 
+              <div class="row mark-line">
+                <div class="col-md-12">
+                  <span class="badge badge-tools">Current Holdings</span>
+                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                <table class="table-bordered table-striped table-condensed cf resposive-table text-center"
+                  data-mobile-title-width="125">
+                  <thead class="cf">
+                    <tr>          
+                      <th>Instrument</th>
+                      <th>Qty.</th>
+                      <th>Average Price</th>
+                      <th>Cur. Price</th>
+                      <th>Total</th>
+                      <th>Profit/Loss</th>   
+                      <th>Actions</th>                   
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let holding of currentHolding | keyvalue unsorted" >
+                     
+                      <td data-title="Symbol Name" class="text-left">                        
+                        {{holding.value.symbol_name}}
+                      </td>
+                      <td data-title="Quantity" class="text-right">
+                        {{holding.value.quantity}}
+                      </td>
+                      <td data-title="Avg. Price" class="text-right" [innerHTML]="formatMoney(holding.value.avg_price)"> 
+                       
+                      </td>
+                      <td data-title="Cur. Price" class="text-right" [innerHTML]="formatMoney(holding.value.current_price)"> 
+                       
+                      </td>
+                      <td data-title="Total Price" class="text-right" [innerHTML]="formatMoney(holding.value.total_price)">
+                        
+                      </td>
+                      <td data-title="Profit/Loss" class="text-right text-danger" [ngClass]="{'mytext-danger':holding.value.profit<0,'mytext-success':holding.value.profit>=0}" [innerHTML]="formatMoney(holding.value.profit)">
+                        
+                      </td>
+                      <td data-title="Actions" class="text-center">
+                        <button type="button" class="btn btn-sm btn-success" style="margin-right: 5px !important;" (click)="openTransactionDialog(holding.value,'buy')">Buy</button>
+                        <button type="button" class="btn btn-sm btn-danger"  (click)="openTransactionDialog(holding.value,'sell')">Sale</button>
+                      </td>
+                    </tr>
+                    
+                    <tr *ngIf="!hasHoldings()"><td colspan="7" class="text-center">No holdings.</td></tr>
+                    <tr><td colspan="5" class="text-right" [ngClass]="{'mytext-danger':currentHoldingValues.current_profit<0,'mytext-success':currentHoldingValues.current_profit>=0}">
+                     
+                      Total Holding Value : <span [innerHTML]="formatMoney(currentHoldingValues.holding_value)"></span>
+                    </td>
+                    <td class="text-right" [ngClass]="{'mytext-danger':currentHoldingValues.current_profit<0,'mytext-success':currentHoldingValues.current_profit>=0}">
+                      Total Profit/Loss : <span [innerHTML]="formatMoney(currentHoldingValues.current_profit)"></span>
+                    </td><td>&nbsp;</td></tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+
+              <div class="row padding-20">
+                <div class="col-md-12">&nbsp;</div>
+              </div> 
+              <div class="row mark-line">
+                <div class="col-md-12">
+                  <span class="badge badge-tools">Historical Executed Orders</span>
+                </div>                
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                <table class="table-bordered table-striped table-condensed cf resposive-table text-center"
+                  data-mobile-title-width="125">
+                  <thead class="cf">
+                    <tr>          
+                      <th>Instruments</th>
+                      <th>Qty.</th>
+                      <th>Price</th>
+                      <th>Total</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let executedorder of executedOrders" >
+                     
+                      <td data-title="Instruments" class="text-left">
+                        <strong>[ORDER ID : {{executedorder.executed_orders_id}}]</strong><br>
+                        {{executedorder.symbol_name}}
+                      </td>
+                      <td data-title="Quantity" class="text-right">
+                        {{executedorder.quantity}}
+                      </td>
+                      <td data-title="Price" class="text-right"> 
+                        {{executedorder.price}}
+                      </td>
+                      <td data-title="Total Price" class="text-right">
+                        {{executedorder.total_price}}
+                      </td>
+                      <td data-title="Date" class="text-right">
+                        {{executedorder.date}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center" colspan="5">No executed orders available.</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+            </mat-tab>
+
+            <mat-tab  id="liveinstruments" label="Live Instruments"> 
+              <div class="row padding-20">
+                <div class="col-md-12">&nbsp;</div>
+              </div> 
+              <div class="row">
+                <div class="col-md-12">
+                <table class="table-bordered table-striped table-condensed cf resposive-table text-center"
+                  data-mobile-title-width="125">
+                  <thead class="cf">
+                    <tr>
+                      <th>Symbol ID</th>
+                      <th>Symbol Name</th>
+                      <th>Last Price</th>
+                      <th>Current Price</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let livestock of liveStocks" >
+                      <td data-title="Symbol ID" class="text-left" style="padding-left:15px !important;">
+                        <i class="fas fa-arrow-circle-down"  *ngIf="livestock.last_price - livestock.current_price > 0" style="color:red !important; margin-right: 5px !important;"></i>
+                        <i *ngIf = "livestock.current_price - livestock.last_price > 0" class="fas fa-arrow-circle-up" style="color:green !important; margin-right: 5px !important;"></i>{{livestock.symbol_id}}
+                      </td>
+                      <td data-title="Symbol Name" class="text-left">
+                        {{livestock.symbol_name}}
+                      </td>
+                      <td data-title="Price" class="text-right" [innerHTML]="formatMoney(livestock.last_price)">
+                        
+                      </td>
+                      <td data-title="Price" class="text-right"  [innerHTML]="formatMoney(livestock.current_price)"> 
+                        
+                      </td>
+                      <td data-title="Action" class="text-center">
+                        
+                        <button type="button" class="btn btn-sm btn-success" style="margin-right: 5px !important;" (click)="openTransactionDialog(livestock,'buy')">Buy</button>
+                        <button type="button" class="btn btn-sm btn-danger"  (click)="openTransactionDialog(livestock,'sell')">Sale</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              </div>
+            </mat-tab>
+           </mat-tab-group> 
+          </div>
+
+
+        </div>
+     </div>
+
+
+
+
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+<ng-template #transactionDialog>
+  <h2 matDialogTitle>
+    <span class="badge" [ngClass]="{'badge-danger':transactingStockInput.action == 'sale', 'badge-success':transactingStockInput.action == 'buy'}">{{(transactingStockInput.action == 'buy')? "BUY" : "SALE"}}</span> &nbsp;
+    <span style="text-transform: uppercase !important;">{{transactingStock.symbol_name}}</span>    
+    &nbsp;[Price : <span [innerHTML]="formatMoney(transactingStock.current_price)"></span>]
+  </h2>
+  <mat-dialog-content> 
+  <div class="row">    
+    <div class="col-md-6 col-12">
+      <div class="form-group">
+        <label>Qty</label>
+        <input type="text" class="form-control" [(ngModel)]="transactingStockInput.quantity" (keyup)="calculateTotalCost()">
+      </div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="form-group">
+        <label>Exec. Price</label>
+        <input type="text" class="form-control" [(ngModel)]="transactingStockInput.price"  (keyup)="calculateTotalCost()">
+        <br>
+        Total : <span [innerHTML]="formatMoney(transactingStockInput.total_price)"></span>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button  (click)="excuteOrderDialogClose('CANCEL')" color="primary">Cancel</button>
+  <button mat-button (click)="excuteOrderDialogClose('OK')" [ngClass]="{'btn-danger':transactingStockInput.action == 'sale', 'btn-success':transactingStockInput.action == 'buy'}">{{(transactingStockInput.action == 'buy')? "Buy" : "Sale"}}</button>
+
+</mat-dialog-actions>
+</ng-template>
+

@@ -1,0 +1,44 @@
+.dialog-title {
+  color:#333 !important;
+  font-size: 2vw !important;
+  font-weight: bold !important;
+}
+
+.dialog-content{
+  padding:10px !important;
+  color:#333 !important;
+}
+
+
+.dialog-content table{
+  border:none;
+  width:100%;
+  height:auto;
+}
+.dialog-content .first-col{
+  white-space: nowrap !important;
+  min-width:50px !important;
+  padding:0px 0px 0px 0px !important;
+  vertical-align:  middle !important;
+  text-align:center !important;
+}
+
+.dialog-content .second-col{
+  width:100%  !important;
+  vertical-align:middle !important;
+  text-align:left !important;
+  padding-left:10px !important;
+  word-wrap: break-word !important;
+  font-size:2vw;
+}
+
+.dialog-content .icon{
+  font-size:4vw;
+
+  font-weight:bolder;
+  color:#8c8a89 !important;
+}
+
+.btn-align {
+  text-align: right !important;
+}

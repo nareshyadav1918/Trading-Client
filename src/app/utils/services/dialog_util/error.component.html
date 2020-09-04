@@ -1,0 +1,12 @@
+<h1 class="dialog-title" mat-dialog-title><i class="fa fa-warning"></i>&nbsp;{{data.title}}</h1>
+<div class="dialog-content" mat-dialog-content>
+    <table border='0' cellspacing='0' cellpadding='0'>
+      <tr>
+        <td class='first-col'><span class='icon' ><i class="fa fa-warning"></i></span></td>
+        <td class='second-col'>{{data.message}}</td>
+      </tr>
+    </table>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button  (click)="onOkClick()" cdkFocusInitial>OK</button>
+</div>
